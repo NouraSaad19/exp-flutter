@@ -120,7 +120,13 @@ class _FWidgetState extends State<FWidget> {
                       name = Controller1.text;
                       salary = Controller2.text;
                       saving = Controller3.text;
-                      var router = new MaterialPageRoute(builder: (BuildContext context) => HomeLayout(salary: salary, saving: saving,));
+
+                      final String zero = "0";
+                      var i1 = double.parse(salary);
+                      var i2 = saving.isEmpty ?  double.parse(zero) :double.parse(saving) ;
+                      var total = i1 - i2;
+                      var total1 = total.toString();
+                      var router = new MaterialPageRoute(builder: (BuildContext context) => HomeLayout(salary: total1, saving: saving,));
                       Navigator.of(context).push(router);
 
                     });
