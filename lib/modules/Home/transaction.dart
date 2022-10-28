@@ -25,7 +25,10 @@ class MyTranaction extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(Icons.attach_money),
+              Icon(
+                Icons.attach_money,
+                color: Color.fromRGBO(0, 71, 147, 1),
+              ),
               Text(
                 tranactionName,
                 style: TextStyle(

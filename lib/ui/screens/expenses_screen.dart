@@ -69,7 +69,17 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Color.fromARGB(49, 187, 183, 183),
+        backgroundColor: Color.fromARGB(255, 238, 234, 234),
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            color: Color.fromRGBO(0, 71, 147, 1),
+            onPressed: (() => Navigator.of(context).pop()),
+          ),
+          backgroundColor: Color.fromARGB(248, 248, 248, 248),
+          title: Text("Expenses",
+              style: TextStyle(color: Color.fromRGBO(0, 71, 147, 1))),
+        ),
         body: Container(
           child: ExpensesCard(
             expenses: expensesItems,

@@ -10,7 +10,6 @@ class HomeScreen extends StatefulWidget {
   final String salary;
   final String saving;
 
-
   HomeScreen({super.key, required this.salary, required this.saving});
 
   @override
@@ -20,26 +19,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    double amountSpent = 0.0;
 
+    for (var item in addamountExpenses) {
+      amountSpent += item;
+    }
 
-double amountSpent = 0.0;
+    var salaryString = double.parse(widget.salary);
 
-for (var item in addamountExpenses){
-
-amountSpent += item;
-}
-
-var salaryString = double.parse(widget.salary);
-
-var totalAllSalary = salaryString - amountSpent;
-var totalAllString = totalAllSalary.toString();
+    var totalAllSalary = salaryString - amountSpent;
+    var totalAllString = totalAllSalary.toString();
 
     return Column(
       children: [
         TopNewCard(
           balance: totalAllString,
           saving: widget.saving,
-          spent: "${amountSpent }",
+          spent: "${amountSpent}",
         ),
         SizedBox(
           height: 25,
@@ -70,7 +66,7 @@ var totalAllString = totalAllSalary.toString();
           children: [
             Text(
               "Recent Expenses",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 20),
             ),
             Text("view all"),
           ],
@@ -97,8 +93,6 @@ var totalAllString = totalAllSalary.toString();
                         children: [
                           Expanded(
                             child: ListView.builder(
-
-
                                 itemCount: addtypeExpenses.length,
                                 itemBuilder: (context, index) {
                                   SizedBox(height: 8);
