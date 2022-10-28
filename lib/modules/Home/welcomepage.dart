@@ -18,7 +18,7 @@ class _FWidgetState extends State<FWidget> {
   var Controller3 = TextEditingController();
   String? name;
   var salary;
-  var saving; //
+  var saving ; //
 
   @override
   Widget build(BuildContext context) {
@@ -121,12 +121,13 @@ class _FWidgetState extends State<FWidget> {
                       salary = Controller2.text;
                       saving = Controller3.text;
 
-                      final String zero = "0";
+                      final saveImpty = "0";
                       var i1 = double.parse(salary);
-                      var i2 = saving.isEmpty ?  double.parse(zero) :double.parse(saving) ;
-                      var total = i1 - i2;
-                      var total1 = total.toString();
-                      var router = new MaterialPageRoute(builder: (BuildContext context) => HomeLayout(salary: total1, saving: saving,));
+                      var i2 = saving.isEmpty ?  double.parse(saveImpty) :double.parse(saving) ;
+                      var totalSalary = i1 - i2;
+                      var totalAll = totalSalary.toString();
+                      var saveOrnot = saving.isEmpty ?  "0.0" : saving ;
+                      var router = new MaterialPageRoute(builder: (BuildContext context) => HomeLayout(salary: totalAll, saving: saveOrnot,));
                       Navigator.of(context).push(router);
 
                     });

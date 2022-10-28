@@ -77,8 +77,10 @@ Widget expensesItem(Expenses expenses, BuildContext context) {
                                       ),
                                       onPressed: () {
                                         amount = Controller1.text;
+
                                         expenses.amount = double.parse(amount);
                                         print(amount);
+
                                         addtypeExpenses
                                             .add(expenses.typeExpenses);
                                         addiconExpenses.add(expenses.icon);
