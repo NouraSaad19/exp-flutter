@@ -20,7 +20,7 @@ class MyTranaction extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         height: 50,
-        color: Colors.blue[50],
+        color: Color.fromRGBO(0, 71, 147, 200),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

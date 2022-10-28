@@ -14,58 +14,66 @@ class TopNewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//     var total = 0.0;
-// var salaries = double.tryParse(balance);
-// var save = double.tryParse(saving) ;
-//  total = (salaries =- save!);
-//  var d = total
+
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 159,
         width: 310,
-        color: Colors.blue[50],
+        // color: Colors.blue[50],
+        decoration: BoxDecoration(
+
+          image: DecorationImage(fit: BoxFit.fill,image: AssetImage("IMAGES/card.JPG")
+          )
+
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               " Total Income",
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
             ),
             Text(
-              balance,
-              style: TextStyle(color: Colors.blue, fontSize: 20),
+              "$balance SR",
+              style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    Icon(Icons.arrow_upward),
+                    Icon(Icons.monetization_on_outlined , color: Colors.white,),
                     Column(
                       children: [
-                        Text("saving"),
+                        Text("spent" ,style:  TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold)),
                         Text(
-                          saving,
-                          style: TextStyle(color: Colors.green, fontSize: 20),
+                          "$spent SR",
+                          style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                   ],
                 ),
                 Row(
+
                   children: [
-                    Icon(Icons.arrow_downward),
+                    Icon(Icons.monetization_on_outlined , color: Colors.white,),
+
                     Column(
                       children: [
-                        Text("spent"),
+                        Text("saving" ,style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold)),
                         Text(
-                          spent,
-                          style: TextStyle(color: Colors.red, fontSize: 20),
+                          "$saving SR",
+                          style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
+
+
+
+
                   ],
                 )
               ],

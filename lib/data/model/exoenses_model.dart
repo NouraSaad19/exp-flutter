@@ -17,4 +17,7 @@ class Expenses {
       this.onItemClick,
       this.amount,
       this.stateClick});
+
+
+
 }
