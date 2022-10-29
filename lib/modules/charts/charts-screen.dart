@@ -5,11 +5,13 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:expense_tracker/ui/component/expensesItem.dart';
 import 'package:expense_tracker/ui/component/expensesItem.dart';
 
-// var a1 = addtypeExpenses.map((e) => e);
-// var a2 = addamountExpenses.map((e) => e);
+dynamic a1 = addtypeExpenses.map((e) => e).toList();
+dynamic a2 = addamountExpenses.map((e) => e).toList();
 
-var a1 = addtypeExpenses.reduce((value, element) => element);
-var a2 = addamountExpenses.reduce((value, element) => element);
+// var a1 = addtypeExpenses.reduce((value, element) => element);
+// var aa1 = addtypeExpenses.reduce((value, element) => element);
+// var a2 = addamountExpenses.reduce((value, element) => element);
+// var aa2 = addamountExpenses.reduce((value, element) => element);
 
 class ChartScreen extends StatefulWidget {
   const ChartScreen({super.key});
@@ -22,7 +24,7 @@ class _ChartScreenState extends State<ChartScreen> {
   late List<GDPData> _chartData;
   @override
   void initState() {
-    _chartData = getChartData(GDPData(a1, a2));
+    _chartData = getChartData(GDPData(a1[0], a2[0]));
     super.initState();
   }
 
@@ -48,7 +50,19 @@ class _ChartScreenState extends State<ChartScreen> {
 }
 
 List<GDPData> getChartData(GDPData gdpData) {
-  List<GDPData> chartData = [GDPData(a1, a2)];
+  List<GDPData> chartData = [
+    GDPData(a1[0], a2[0]),
+    GDPData(a1[1], a2[1]),
+    // GDPData(a1[2], a2[2]),
+    // GDPData(a1[3], a2[3]),
+    // GDPData(a1[4], a2[4]),
+    // GDPData(a1[5], a2[5]),
+    // GDPData(a1[6], a2[6]),
+    // GDPData(a1[7], a2[7]),
+    // GDPData(a1[8], a2[8]),
+    // GDPData(a1[9], a2[9]),
+  ];
+
   return chartData;
 }
 
