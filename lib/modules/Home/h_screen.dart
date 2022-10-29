@@ -21,8 +21,8 @@ class _HScreenState extends State<HScreen> {
   int currentIndex = 0;
   List<Widget> screens = [
     HomeScreen(
-      salary: '',
-      saving: '',
+      salary: '0',
+      saving: '0',
     ),
     ExpensesScreen(),
     ProfileScreen(),

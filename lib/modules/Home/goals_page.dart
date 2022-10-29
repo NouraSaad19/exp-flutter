@@ -108,7 +108,7 @@ class _MyGoalsState extends State<MyGoals> {
                               dismissible: true,
                               minimumDate: DateTime.now(),
                               maximumDate:
-                                  DateTime.now().add(const Duration(days: 30)),
+                                  DateTime.now().add(const Duration(days: 200)),
                               endDate: endDate,
                               startDate: startDate,
                               onApplyClick: (start, end) {
