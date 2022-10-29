@@ -18,6 +18,9 @@ class Expenses {
       this.amount,
       this.stateClick});
 
-
+  // void delete1(Expenses  ) {
+  //   Expenses.remove(typeExpenses , amount);
+  //
+  // }
 
 }
