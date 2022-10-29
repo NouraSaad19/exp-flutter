@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
   custom_date_range_picker: ^1.0.6
+  percent_indicator: ^4.2.2
 
 dev_dependencies:
   flutter_test:
