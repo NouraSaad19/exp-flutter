@@ -1,3 +1,4 @@
+import 'package:expense_tracker/modules/Home/goals_page.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/modules/Home/home-screen.dart';
 import 'package:expense_tracker/modules/Profile/profile-screen.dart';
@@ -93,7 +94,13 @@ class _HomeLayoutState extends State<HomeLayout> {
                                           MainAxisAlignment.center,
                                       children: [
                                         OutlinedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MyGoals()));
+                                          },
                                           style: OutlinedButton.styleFrom(
                                             fixedSize: Size.fromWidth(100),
                                             side: BorderSide(

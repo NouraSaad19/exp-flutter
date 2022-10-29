@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class HScreen extends StatefulWidget {
   final String? goalName;
-  
 
   const HScreen({super.key, required this.goalName});
 
@@ -16,7 +15,6 @@ class HScreen extends StatefulWidget {
 class _HScreenState extends State<HScreen> {
   String? goalName;
   _HScreenState(this.goalName);
-
 
   int currentIndex = 0;
   List<Widget> screens = [
