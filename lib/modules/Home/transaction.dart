@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/ui/component/expensesItem.dart';
 
+import '../../data/model/exoenses_model.dart';
+
 class MyTranaction extends StatelessWidget {
   final String tranactionName;
   final String money;
@@ -15,7 +17,7 @@ class MyTranaction extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context )  {
     return ClipRRect(
       child: Container(
         padding: EdgeInsets.all(10),
@@ -25,7 +27,12 @@ class MyTranaction extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(Icons.attach_money),
+//               TextButton(onPressed: (){
+// expenses.delete1(addamountExpenses );
+//               }, child: Text("de")),
+
+              Icon(Icons.attach_money
+              , ),
               Text(
                 tranactionName,
                 style: TextStyle(
@@ -37,6 +44,7 @@ class MyTranaction extends StatelessWidget {
                     color: (expenseOrIncome == 'expense'
                         ? Colors.red
                         : Colors.green)),
+
               ),
             ],
           ),

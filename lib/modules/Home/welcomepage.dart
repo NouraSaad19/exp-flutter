@@ -9,23 +9,53 @@ class FWidget extends StatefulWidget {
 
   @override
   State<FWidget> createState() => _FWidgetState();
+
 }
 
 class _FWidgetState extends State<FWidget> {
+
   var c1 = Color.fromRGBO(0, 71, 147, 1);
   var Controller1 = TextEditingController();
   var Controller2 = TextEditingController();
   var Controller3 = TextEditingController();
   String? name;
   var salary;
-  var saving ; //
+  var saving ;
+
+
+
+  void totalEpenses(){
+    name = Controller1.text;
+    salary = Controller2.text;
+    saving = Controller3.text;
+
+    final saveImpty = "0";
+   var i1 = double.parse(salary);
+    var i2 = saving.isEmpty ?  double.parse(saveImpty) :double.parse(saving) ;
+    var totalSalary = i1 - i2;
+    var totalAll = totalSalary.toString();
+    var saveOrnot = saving.isEmpty ?  "0.0" : saving ;
+
+
+
+
+
+
+    var router = new MaterialPageRoute(builder: (BuildContext context) => HomeLayout(salary: totalAll, saving: saveOrnot,));
+    Navigator.of(context).push(router);
+
+
+  }
+  //
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
+
           child: Column(
             children: [
               Container(
@@ -61,6 +91,9 @@ class _FWidgetState extends State<FWidget> {
               Container(
                 margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
                 child: TextField(
+
+
+
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: c1),
@@ -82,7 +115,9 @@ class _FWidgetState extends State<FWidget> {
               Container(
                 margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
                 child: TextField(
+
                   decoration: InputDecoration(
+
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: c1),
                       borderRadius: BorderRadius.circular(10),
@@ -96,8 +131,10 @@ class _FWidgetState extends State<FWidget> {
                       color: c1,
                     ),
                   ),
+
                   keyboardType: TextInputType.number,
                   controller: Controller3,
+
                 ),
               ),
               SizedBox(
@@ -117,20 +154,15 @@ class _FWidgetState extends State<FWidget> {
                   ),
                   onPressed: () {
                     setState(() {
-                      name = Controller1.text;
-                      salary = Controller2.text;
-                      saving = Controller3.text;
 
-                      final saveImpty = "0";
-                      var i1 = double.parse(salary);
-                      var i2 = saving.isEmpty ?  double.parse(saveImpty) :double.parse(saving) ;
-                      var totalSalary = i1 - i2;
-                      var totalAll = totalSalary.toString();
-                      var saveOrnot = saving.isEmpty ?  "0.0" : saving ;
-                      var router = new MaterialPageRoute(builder: (BuildContext context) => HomeLayout(salary: totalAll, saving: saveOrnot,));
-                      Navigator.of(context).push(router);
 
-                    });
+
+
+                      totalEpenses();
+
+
+                    }
+                    );
 
                   },
                 ),

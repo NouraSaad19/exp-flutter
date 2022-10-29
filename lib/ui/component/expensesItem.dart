@@ -10,6 +10,10 @@ List addamountExpenses = [];
 dynamic? amount;
 
 Widget expensesItem(Expenses expenses, BuildContext context) {
+
+
+
+
   return Container(
     padding: EdgeInsets.all(16),
     color: Color.fromARGB(248, 248, 248, 248),
@@ -79,6 +83,9 @@ Widget expensesItem(Expenses expenses, BuildContext context) {
                                         amount = Controller1.text;
 
                                         expenses.amount = double.parse(amount);
+
+
+
                                         print(amount);
 
                                         addtypeExpenses
@@ -102,10 +109,18 @@ Widget expensesItem(Expenses expenses, BuildContext context) {
                               ],
                             ));
                   },
+
+
                   icon: Icon(Icons.add)),
+
+
+
+
+
+
               Text(("${expenses.amount}" == "null")
                   ? "0 SAR"
-                  : "${expenses.amount}"),
+                  : "${expenses.amount}  " ),
             ],
           ),
         )),

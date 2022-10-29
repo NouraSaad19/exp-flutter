@@ -14,8 +14,8 @@ class TopNewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
+    var i1 = double.parse(balance);
+    var i2 = double.parse(spent);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -33,11 +33,13 @@ class TopNewCard extends StatelessWidget {
           children: [
             Text(
               " Total Income",
-              style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+              style: TextStyle( color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold , )
             ),
             Text(
               "$balance SR",
-              style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+              style: TextStyle( fontSize: 20,fontWeight: FontWeight.bold ,  color: (i1  >= i2 ?
+              Colors.white
+                  : Colors.red)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
