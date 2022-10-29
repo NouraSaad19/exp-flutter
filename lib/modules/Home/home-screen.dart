@@ -21,13 +21,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    double? s = double.tryParse(widget.salary);
+    double amountSpent = 0.0;
+
+    for (var item in addamountExpenses) {
+      amountSpent += item;
+    }
+
+    var salaryString = double.parse(widget.salary);
+
+    var totalAllSalary = salaryString - amountSpent;
+    var totalAllString = totalAllSalary.toString();
+
     return Column(
       children: [
         TopNewCard(
-          balance: widget.salary,
+          balance: totalAllString,
           saving: widget.saving,
-          spent: '\5555 SR',
+          spent: "${amountSpent}",
         ),
         SizedBox(
           height: 25,
@@ -61,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text(
               "Recent Expenses",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 20),
             ),
             Text("view all"),
           ],
@@ -91,7 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: addtypeExpenses.length,
                                 itemBuilder: (context, index) {
                                   SizedBox(height: 8);
+
                                   return MyTranaction(
+
                                       //icons: "${addiconExpenses[index]}",
                                       tranactionName:
                                           "${addtypeExpenses[index]}",

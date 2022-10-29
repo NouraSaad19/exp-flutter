@@ -28,7 +28,8 @@ Widget expensesItem(Expenses expenses, BuildContext context) {
             ),
             Text(
               "${expenses.typeExpenses}",
-              style: TextStyle(fontSize: 15),
+              style:
+                  TextStyle(fontSize: 15, color: Color.fromRGBO(0, 71, 147, 1)),
               //textAlign: TextAlign.center,
             ),
           ],
@@ -52,7 +53,11 @@ Widget expensesItem(Expenses expenses, BuildContext context) {
                                     color: expenses.color!,
                                   ),
                                   SizedBox(width: 10),
-                                  Text("${expenses.typeExpenses}"),
+                                  Text(
+                                    "${expenses.typeExpenses}",
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(0, 71, 147, 1)),
+                                  ),
                                   SizedBox(height: 10),
                                 ],
                               ),
@@ -77,8 +82,10 @@ Widget expensesItem(Expenses expenses, BuildContext context) {
                                       ),
                                       onPressed: () {
                                         amount = Controller1.text;
+
                                         expenses.amount = double.parse(amount);
                                         print(amount);
+
                                         addtypeExpenses
                                             .add(expenses.typeExpenses);
                                         addiconExpenses.add(expenses.icon);
@@ -101,9 +108,11 @@ Widget expensesItem(Expenses expenses, BuildContext context) {
                             ));
                   },
                   icon: Icon(Icons.add)),
-              Text(("${expenses.amount}" == "null")
-                  ? "0 SAR"
-                  : "${expenses.amount}"),
+              Text(
+                  style: TextStyle(color: Color.fromRGBO(0, 71, 147, 1)),
+                  ("${expenses.amount}" == "null")
+                      ? "0 SAR"
+                      : "${expenses.amount}"),
             ],
           ),
         )),
