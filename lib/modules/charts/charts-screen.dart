@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:expense_tracker/ui/component/expensesItem.dart';
 import 'package:expense_tracker/ui/component/expensesItem.dart';
-import 'dart:core';
 
-var a2 = addtypeExpenses.map((e) => e) as String;
-var a1 = addamountExpenses.map((e) => e) as double;
+// var a1 = addtypeExpenses.map((e) => e);
+// var a2 = addamountExpenses.map((e) => e);
 
-// var a2 = addtypeExpenses.reduce((value, element) => value + element);
+var a1 = addtypeExpenses.reduce((value, element) => element);
+var a2 = addamountExpenses.reduce((value, element) => element);
 
 class ChartScreen extends StatefulWidget {
   const ChartScreen({super.key});
@@ -22,7 +22,7 @@ class _ChartScreenState extends State<ChartScreen> {
   late List<GDPData> _chartData;
   @override
   void initState() {
-    _chartData = getChartData(GDPData(a2, a1));
+    _chartData = getChartData(GDPData(a1, a2));
     super.initState();
   }
 
@@ -48,7 +48,7 @@ class _ChartScreenState extends State<ChartScreen> {
 }
 
 List<GDPData> getChartData(GDPData gdpData) {
-  List<GDPData> chartData = [GDPData(a2, a1)];
+  List<GDPData> chartData = [GDPData(a1, a2)];
   return chartData;
 }
 
