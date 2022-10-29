@@ -1,9 +1,11 @@
+import 'package:expense_tracker/modules/Home/goals_page.dart';
 import 'package:expense_tracker/modules/Home/top_new_card.dart';
 import 'package:expense_tracker/modules/Home/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/ui/component/expensesItem.dart';
 import '../../data/model/exoenses_model.dart';
 import 'goal.dart';
+import 'package:expense_tracker/modules/Home/goals_page.dart';
 
 class HomeScreen extends StatefulWidget {
   String? name;
@@ -44,7 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             height: 90,
             width: 310,
-            child: MyGoal(),
+            child: MyGoal(
+                goalName: GoalName,
+                saving_amount: saving_amount,
+                monthly_amount: monthly_amount),
           ),
         ),
         SizedBox(

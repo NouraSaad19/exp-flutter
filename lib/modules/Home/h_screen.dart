@@ -4,16 +4,26 @@ import 'package:expense_tracker/ui/screens/expenses_screen.dart';
 import 'package:flutter/material.dart';
 
 class HScreen extends StatefulWidget {
-  const HScreen({super.key});
+  final String? goalName;
+  
+
+  const HScreen({super.key, required this.goalName});
 
   @override
-  State<HScreen> createState() => _HScreenState();
+  State<HScreen> createState() => _HScreenState(goalName);
 }
 
 class _HScreenState extends State<HScreen> {
+  String? goalName;
+  _HScreenState(this.goalName);
+
+
   int currentIndex = 0;
   List<Widget> screens = [
-    HomeScreen(salary: '', saving: '',),
+    HomeScreen(
+      salary: '',
+      saving: '',
+    ),
     ExpensesScreen(),
     ProfileScreen(),
   ];
