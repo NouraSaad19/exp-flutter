@@ -1,15 +1,16 @@
+import 'package:expense_tracker/modules/Home/goals_page.dart';
 import 'package:expense_tracker/modules/Home/top_new_card.dart';
 import 'package:expense_tracker/modules/Home/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/ui/component/expensesItem.dart';
 import '../../data/model/exoenses_model.dart';
 import 'goal.dart';
+import 'package:expense_tracker/modules/Home/goals_page.dart';
 
 class HomeScreen extends StatefulWidget {
   String? name;
   final String salary;
   final String saving;
-
 
   HomeScreen({super.key, required this.salary, required this.saving});
 
@@ -20,26 +21,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    double amountSpent = 0.0;
 
+    for (var item in addamountExpenses) {
+      amountSpent += item;
+    }
 
-double amountSpent = 0.0;
+    var salaryString = double.parse(widget.salary);
 
-for (var item in addamountExpenses){
-
-amountSpent += item;
-}
-
-var salaryString = double.parse(widget.salary);
-
-var totalAllSalary = salaryString - amountSpent;
-var totalAllString = totalAllSalary.toString();
+    var totalAllSalary = salaryString - amountSpent;
+    var totalAllString = totalAllSalary.toString();
 
     return Column(
       children: [
         TopNewCard(
           balance: totalAllString,
           saving: widget.saving,
-          spent: "${amountSpent }",
+          spent: "${amountSpent}",
         ),
         SizedBox(
           height: 25,
@@ -58,7 +56,10 @@ var totalAllString = totalAllSalary.toString();
           child: Container(
             height: 90,
             width: 310,
-            child: MyGoal(),
+            child: MyGoal(
+                goalName: GoalName,
+                saving_amount: saving_amount,
+                monthly_amount: monthly_amount),
           ),
         ),
         SizedBox(
@@ -70,7 +71,7 @@ var totalAllString = totalAllSalary.toString();
           children: [
             Text(
               "Recent Expenses",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 20),
             ),
             Text("view all"),
           ],
@@ -97,8 +98,6 @@ var totalAllString = totalAllSalary.toString();
                         children: [
                           Expanded(
                             child: ListView.builder(
-
-
                                 itemCount: addtypeExpenses.length,
                                 itemBuilder: (context, index) {
                                   SizedBox(height: 8);

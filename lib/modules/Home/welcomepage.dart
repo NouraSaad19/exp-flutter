@@ -22,6 +22,7 @@ class _FWidgetState extends State<FWidget> {
   var Controller3 = TextEditingController();
   String? name;
   var salary;
+
   var saving ;
 
 
@@ -48,6 +49,9 @@ class _FWidgetState extends State<FWidget> {
 
   }
   //
+
+  var saving; //
+
 
   @override
   Widget build(BuildContext context) {
@@ -187,6 +191,7 @@ validator: (value){
 
                     },
                   ),
+
                 ),
               ],
             ),
