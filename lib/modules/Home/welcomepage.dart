@@ -2,20 +2,16 @@ import 'package:expense_tracker/layout/home_layout.dart';
 import 'package:expense_tracker/modules/Home/home-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-
 import 'h_screen.dart';
 
 class FWidget extends StatefulWidget {
   const FWidget({super.key});
 
-
   @override
   State<FWidget> createState() => _FWidgetState();
-
 }
 
 class _FWidgetState extends State<FWidget> {
-
   var c1 = Color.fromRGBO(0, 71, 147, 1);
   var Controller1 = TextEditingController();
   var Controller2 = TextEditingController();
@@ -23,35 +19,31 @@ class _FWidgetState extends State<FWidget> {
   String? name;
   var salary;
 
-  var saving ;
+  var saving;
 
-
-
-  void totalEpenses(){
+  void totalEpenses() {
     name = Controller1.text;
     salary = Controller2.text;
     saving = Controller3.text;
 
     final saveImpty = "0";
-   var i1 = double.parse(salary);
-    var i2 = saving.isEmpty ?  double.parse(saveImpty) :double.parse(saving) ;
+    var i1 = double.parse(salary);
+    var i2 = saving.isEmpty ? double.parse(saveImpty) : double.parse(saving);
     var totalSalary = i1 - i2;
     var totalAll = totalSalary.toString();
-    var saveOrnot = saving.isEmpty ?  "0.0" : saving ;
+    var saveOrnot = saving.isEmpty ? "0.0" : saving;
 
-
-
-
-
-    var router = new MaterialPageRoute(builder: (BuildContext context) => HomeLayout(salary: totalAll, saving: saveOrnot, name: Controller1.text  ,));
+    var router = new MaterialPageRoute(
+        builder: (BuildContext context) => HomeLayout(
+              salary: totalAll,
+              saving: saveOrnot,
+              name: Controller1.text,
+            ));
     Navigator.of(context).push(router);
-
-
   }
   //
 
-  var saving; //
-
+  //var saving;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +55,6 @@ class _FWidgetState extends State<FWidget> {
         body: Form(
           key: _forkey,
           child: SafeArea(
-
             child: Column(
               children: [
                 Container(
@@ -79,7 +70,6 @@ class _FWidgetState extends State<FWidget> {
                 Container(
                   margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
                   child: TextField(
-
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: c1),
@@ -100,17 +90,13 @@ class _FWidgetState extends State<FWidget> {
                 Container(
                   margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
                   child: TextFormField(
-
-validator: (value){
-
-  if(value!.isEmpty){
-    return "Plese Enter Income....!";
-  }else {
-
-    return "ook";
-  }
-},
-
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Plese Enter Income....!";
+                      } else {
+                        return "ook";
+                      }
+                    },
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: c1),
@@ -129,13 +115,10 @@ validator: (value){
                     controller: Controller2,
                   ),
                 ),
-
                 Container(
                   margin: EdgeInsets.fromLTRB(30, 5, 30, 0),
                   child: TextFormField(
-
                     decoration: InputDecoration(
-
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: c1),
                         borderRadius: BorderRadius.circular(10),
@@ -149,10 +132,8 @@ validator: (value){
                         color: c1,
                       ),
                     ),
-
                     keyboardType: TextInputType.number,
                     controller: Controller3,
-
                   ),
                 ),
                 SizedBox(
@@ -171,27 +152,14 @@ validator: (value){
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
-
-
-                      if(_forkey.currentState!.validate()){
-
-                        return ;
+                      if (_forkey.currentState!.validate()) {
+                        return;
                       }
                       setState(() {
-
-
-
-
-
                         totalEpenses();
-
-
-                      }
-                      );
-
+                      });
                     },
                   ),
-
                 ),
               ],
             ),
