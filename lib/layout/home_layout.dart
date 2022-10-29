@@ -5,10 +5,10 @@ import 'package:expense_tracker/modules/charts/charts-screen.dart';
 import 'package:expense_tracker/ui/screens/expenses_screen.dart';
 
 class HomeLayout extends StatefulWidget {
-  String? name;
+  final String name;
   final String salary;
   final String saving;
-  HomeLayout({super.key, required this.salary, required this.saving});
+  HomeLayout({super.key, required this.salary, required this.saving , required this.name});
 
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
@@ -17,15 +17,16 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends State<HomeLayout> {
   int currentIndex = 0;
 
-  List<String> titles = [
-    "Noura",
-    "My Expenses",
-    "Profile page",
-  ];
+
   @override
   Widget build(BuildContext context) {
+    List<String> titles = [
+      ("hello ${widget.name}"),
+      "My Expenses",
+      "Profile page",
+    ];
     List<Widget> screens = [
-      HomeScreen(salary: widget.salary, saving: widget.saving),
+      HomeScreen(salary: widget.salary, saving: widget.saving ),
       ExpensesScreen(),
       ProfileScreen(),
     ];
