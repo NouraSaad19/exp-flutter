@@ -16,51 +16,58 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
+
+  double amountSpent = 0.0;
+  var salaryString;
+  var totalAllSalary;
+  var totalAllString;
+  void CalcluteSum() {
+    for (var item in addamountExpenses) {
+      amountSpent += item;
+    }
+
+    salaryString = double.parse(salary);
+
+    totalAllSalary = salaryString - amountSpent;
+    totalAllSalary = totalAllSalary - monthly_amount;
+    totalAllString = totalAllSalary.toString();
+  }
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    double amountSpent = 0.0;
-
-    for (var item in addamountExpenses) {
-      amountSpent += item;
-    }
-
-    var salaryString = double.parse(widget.salary);
-
-    var totalAllSalary = salaryString - amountSpent;
-    var totalAllString = totalAllSalary.toString();
-
+    widget.CalcluteSum();
     return Column(
       children: [
-        TopNewCard(
-          balance: totalAllString,
-          saving: widget.saving,
-          spent: "${amountSpent}",
+        Container(
+          child: TopNewCard(
+            balance: "${(widget.totalAllSalary).toStringAsFixed(2)}",
+            saving: widget.saving,
+            spent: "${(widget.amountSpent).toStringAsFixed(2)}",
+          ),
         ),
         SizedBox(
           height: 25,
         ),
         Container(
-            child: Text(
-          "My GOAL",
-          style: TextStyle(
-            fontSize: 25,
-          ),
-        )),
+          alignment: Alignment.centerRight,
+          child: Text("\t \t\t\t\t اهدافي ",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold)),
+        ),
         SizedBox(
           height: 8,
         ),
-        Expanded(
-          child: Container(
-            height: 90,
-            width: 310,
-            child: MyGoal(
-                goalName: GoalName,
-                saving_amount: saving_amount,
-                monthly_amount: monthly_amount),
-          ),
+        Container(
+          height: 90,
+          width: 336,
+          child: MyGoal(
+              goalName: GoalName,
+              saving_amount: saving_amount,
+              monthly_amount: monthly_amount),
         ),
         SizedBox(
           height: 25,
@@ -69,11 +76,20 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              "Recent Expenses",
-              style: TextStyle(fontSize: 20),
+            Container(
+              margin: EdgeInsets.only(left: 100),
+              child: Text(
+                "المصروفات الاخيرة",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-            Text("view all"),
+            Text(
+              "عرض الكل",
+              style: TextStyle(color: Color.fromRGBO(0, 71, 147, 1)),
+            ),
           ],
         )),
         SizedBox(
@@ -103,11 +119,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SizedBox(height: 8);
 
                                   return MyTranaction(
-
                                       //icons: "${addiconExpenses[index]}",
                                       tranactionName:
                                           "${addtypeExpenses[index]}",
-                                      money: "${addamountExpenses[index]}",
+                                      money:
+                                          "${(addamountExpenses[index]).toStringAsFixed(2)}\t\t\t",
                                       expenseOrIncome: "expense");
                                 }),
                           )

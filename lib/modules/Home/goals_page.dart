@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:expense_tracker/layout/home_layout.dart';
 import 'package:intl/intl.dart';
 import 'package:custom_date_range_picker/custom_date_range_picker.dart';
 // import 'DatePicker/custom_calendar.dart';
@@ -21,10 +22,10 @@ var myController1 = TextEditingController();
 String GoalName = '';
 
 var myController2 = TextEditingController();
-num saving_amount = 0;
+double saving_amount = 0.0;
 
 var myController3 = TextEditingController();
-num monthly_amount = 0;
+double monthly_amount = 0.0;
 
 class _MyGoalsState extends State<MyGoals> {
   DateTime? startDate;
@@ -37,67 +38,66 @@ class _MyGoalsState extends State<MyGoals> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
         title: Text(
-          'Goal',
+          'الاهداف ',
           style: TextStyle(
               // fontSize: 15,
               color: Color.fromRGBO(0, 71, 147, 1),
               fontWeight: FontWeight.bold),
         ),
-        // leading: BackButton(
-        //   onPressed: () {},
-        //   color: Color.fromRGBO(0, 71, 147, 1),
-        // ),
       ),
       body: Container(
+        //alignment: Alignment.topRight,
         padding: EdgeInsets.all(35),
-        child: Column(children: [
-          Row(
-            children: [
-              Text(
-                "Goal name ",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Color.fromRGBO(0, 71, 147, 1),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
           Container(
-            // color: Colors.amberAccent,
-            // alignment: Alignment.center,
-            //  padding: EdgeInsets.all(10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start, // arabic format
               children: [
-                TextField(
-                  controller: myController1,
-                  decoration: InputDecoration(
-                    //  filled: true,
-                    fillColor: Color.fromRGBO(217, 227, 239, 1),
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter your goal',
+                Text(
+                  "عنوان الهدف",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color.fromRGBO(0, 71, 147, 1),
+                    fontWeight: FontWeight.w600,
                   ),
-                  onChanged: (text) {
-                    GoalName = text;
-                  },
                 ),
+                SizedBox(height: 10),
+                SizedBox(
+                  height: 38,
+                  // width: 306,
+                  child: TextField(
+                    controller: myController1,
+                    textAlign: TextAlign.start,
+                    showCursor: false,
+                    style: TextStyle(height: 2.5),
+                    decoration: InputDecoration(
+                      //  filled: true,
+                      fillColor: Color.fromRGBO(217, 227, 239, 1),
+                      border: OutlineInputBorder(),
+                      hintText: 'ادخل هدفك ',
+                    ),
+                    onChanged: (text) {
+                      GoalName = text;
+                    },
+                  ),
+                ),
+
                 SizedBox(height: 10),
 //////////////////
 
                 ///
                 Text(
-                  'Choose a date Range',
+                  'اختر التاريخ ',
                   style: TextStyle(
-                      fontSize: 20,
-                      color: Color.fromRGBO(0, 71, 147, 1),
-                      fontWeight: FontWeight.bold),
+                    fontSize: 16,
+                    color: Color.fromRGBO(0, 71, 147, 1),
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
 
                 Container(
                     alignment: Alignment.center,
-                    //   color: Colors.amberAccent,
+                    // color: Colors.amberAccent,
                     child: Column(
                       children: [
                         const SizedBox(height: 10),
@@ -144,66 +144,87 @@ class _MyGoalsState extends State<MyGoals> {
                 SizedBox(height: 10),
 
                 Text(
-                  "Saving amount",
+                  "كمية الادخار ",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     color: Color.fromRGBO(0, 71, 147, 1),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: myController2,
-                  decoration: InputDecoration(
-                    // filled: true,
-                    fillColor: Color.fromRGBO(217, 227, 239, 1),
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter your amount',
-                  ),
-                  onChanged: (text) {
-                    saving_amount = int.parse(text);
-                  },
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "Monthly cut",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Color.fromRGBO(0, 71, 147, 1),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: myController3,
-                  decoration: InputDecoration(
-                    //   filled: true,
-                    fillColor: Color.fromRGBO(217, 227, 239, 1),
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter your amount',
-                  ),
-                  onChanged: (text) {
-                    monthly_amount = int.parse(text);
-                  },
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "Note",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Color.fromRGBO(0, 71, 147, 1),
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 10),
 
-                TextField(
-                  cursorHeight: 20,
-                  style: TextStyle(height: 5),
-                  decoration: InputDecoration(
-                    //filled: true,
-                    fillColor: Color.fromRGBO(217, 227, 239, 1),
-                    border: OutlineInputBorder(),
+                SizedBox(
+                  height: 38,
+                  child: TextField(
+                    controller: myController2,
+                    textAlign: TextAlign.start,
+                    showCursor: false,
+                    style: TextStyle(height: 2.5),
+                    decoration: InputDecoration(
+                      // filled: true,
+                      fillColor: Color.fromRGBO(217, 227, 239, 1),
+                      border: OutlineInputBorder(),
+                      hintText: 'ادخل المبلغ',
+                    ),
+                    onChanged: (text) {
+                      saving_amount = double.parse(text);
+                    },
+                  ),
+                ),
+
+                SizedBox(height: 10),
+                Text(
+                  "الخصم الشهري",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color.fromRGBO(0, 71, 147, 1),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 10),
+
+                SizedBox(
+                  height: 38,
+                  child: TextField(
+                    controller: myController3,
+                    textAlign: TextAlign.start,
+                    showCursor: false,
+                    style: TextStyle(height: 2.5),
+                    decoration: InputDecoration(
+                      //   filled: true,
+                      fillColor: Color.fromRGBO(217, 227, 239, 1),
+                      border: OutlineInputBorder(),
+                      hintText: 'ادخل المبلغ',
+                    ),
+                    onChanged: (text) {
+                      monthly_amount = double.parse(text);
+                    },
+                  ),
+                ),
+                SizedBox(height: 10),
+
+                Text(
+                  "ملاحظات",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color.fromRGBO(0, 71, 147, 1),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 10),
+
+                SizedBox(
+                  height: 73,
+                  child: TextField(
+                    textAlign: TextAlign.start,
+                    showCursor: false,
+                    style: TextStyle(height: 3),
+                    decoration: InputDecoration(
+                      hintText: 'ادخل ملاحظاتك هنا ',
+                      //filled: true,
+                      fillColor: Color.fromRGBO(217, 227, 239, 1),
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),
@@ -213,20 +234,16 @@ class _MyGoalsState extends State<MyGoals> {
                     minimumSize: const Size.fromHeight(50),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => HScreen(
-                        goalName: GoalName,
-                      ),
-                    ));
+                    Navigator.pop(context);
 
-                    setState(() {
-                      print(myController1.text);
-                      print(myController2.text);
-                      print(myController3.text);
-                    });
+                    // setState(() {
+                    //   print(myController1.text);
+                    //   print(myController2.text);
+                    //   print(myController3.text);
+                    // });
                   },
                   child: Text(
-                    'Save',
+                    'حفظ',
                     style: TextStyle(fontSize: 25),
                   ),
                 ),

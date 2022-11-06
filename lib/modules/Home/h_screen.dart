@@ -27,9 +27,9 @@ class _HScreenState extends State<HScreen> {
   ];
 
   List<String> titles = [
-    "Noura",
-    "My Expenses",
-    "Profile page",
+    "",
+    "",
+    "",
   ];
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,6 @@ class _HScreenState extends State<HScreen> {
               }), //يعلمني انا  قاعده اضغط على ايش
           //ignore: prefer_const_literals_to_create_immutables
           items: [
-            // need icon and label
-            // ignore: prefer_const_constructors
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.home,
@@ -63,8 +61,8 @@ class _HScreenState extends State<HScreen> {
                 icon: Icon(Icons.add, color: Color.fromRGBO(0, 71, 147, 1)),
                 label: 'New'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.chat_rounded,
-                    color: Color.fromRGBO(0, 71, 147, 1)),
+                icon:
+                    Icon(Icons.bar_chart, color: Color.fromRGBO(0, 71, 147, 1)),
                 label: 'Dashboard'),
           ]),
     );

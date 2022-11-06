@@ -10,6 +10,7 @@ class HomeLayout extends StatefulWidget {
   final String name;
   final String salary;
   final String saving;
+
   HomeLayout(
       {super.key,
       required this.salary,
@@ -26,112 +27,113 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     List<String> titles = [
-      ("hello ${widget.name}"),
-      "My Expenses",
-      "Profile page",
+      ("مرحبا , ${widget.name}"),
+      "تقرير",
     ];
     List<Widget> screens = [
       HomeScreen(
         salary: widget.salary,
         saving: widget.saving,
       ),
-      HomeScreen(
-        salary: widget.salary,
-        saving: widget.saving,
-      ),
-      //ExpensesScreen(),
-      ProfileScreen(),
+      ChartScreen(),
     ];
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
+        elevation: 0,
         backgroundColor: Color.fromARGB(255, 249, 247, 247),
-        title: Text(
-          "${titles[currentIndex]}",
-          style: TextStyle(color: Colors.black),
-        ),
+        centerTitle: false,
+        title: Text("${titles[currentIndex]}",
+            style: TextStyle(color: Color.fromRGBO(0, 71, 147, 1))),
+        automaticallyImplyLeading: false,
       ),
       body: screens[currentIndex],
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    content: Container(
+                        alignment: Alignment.center,
+                        height: 200,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 68,
+                                  width: 140,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ExpensesScreen()));
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      fixedSize: Size.fromWidth(100),
+                                      side: BorderSide(
+                                          width: 1.0,
+                                          color: Color.fromRGBO(0, 71, 147, 1)),
+                                    ),
+                                    child: Text(
+                                      'المصروفات',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Color.fromRGBO(0, 71, 147, 1),
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 68,
+                                  width: 140,
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MyGoals()));
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      fixedSize: Size.fromWidth(100),
+                                      side: BorderSide(
+                                        width: 1.0,
+                                        color: Color.fromRGBO(0, 71, 147, 1),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'الأهداف',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Color.fromRGBO(0, 71, 147, 1),
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        )),
+                  ));
+        },
+        child: Icon(Icons.add, color: Color.fromRGBO(0, 71, 147, 1)),
+      ),
       bottomNavigationBar: BottomNavigationBar(
-          showUnselectedLabels: false,
+          //showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
           onTap: (value) => setState(() {
-                if (currentIndex == 0) {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            content: Container(
-                                alignment: Alignment.center,
-                                height: 200,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        OutlinedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ExpensesScreen()));
-                                          },
-                                          style: OutlinedButton.styleFrom(
-                                            fixedSize: Size.fromWidth(100),
-                                            side: BorderSide(
-                                                width: 1.0,
-                                                color: Color.fromRGBO(
-                                                    0, 71, 147, 1)),
-                                          ),
-                                          child: Text(
-                                            'Expenses',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Color.fromRGBO(
-                                                    0, 71, 147, 1),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        OutlinedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MyGoals()));
-                                          },
-                                          style: OutlinedButton.styleFrom(
-                                            fixedSize: Size.fromWidth(100),
-                                            side: BorderSide(
-                                              width: 1.0,
-                                              color:
-                                                  Color.fromRGBO(0, 71, 147, 1),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            'Goals',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Color.fromRGBO(
-                                                    0, 71, 147, 1),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )),
-                          ));
-                }
                 currentIndex = value;
               }), //يعلمني انا  قاعده اضغط على ايش
           //ignore: prefer_const_literals_to_create_immutables
@@ -143,14 +145,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                   Icons.home,
                   color: Color.fromRGBO(0, 71, 147, 1),
                 ),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.add, color: Color.fromRGBO(0, 71, 147, 1)),
-                label: 'New'),
+                label: 'الرئيسية'),
+            // BottomNavigationBarItem(
+            //     icon: Icon(Icons.add, color: Color.fromRGBO(0, 71, 147, 1)),
+            //     label: 'اضافة'),
             BottomNavigationBarItem(
                 icon:
                     Icon(Icons.bar_chart, color: Color.fromRGBO(0, 71, 147, 1)),
-                label: 'Dashboard'),
+                label: 'تقرير'),
           ]),
     );
   }

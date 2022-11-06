@@ -30,7 +30,7 @@ class _ExpensesCardState extends State<ExpensesCard> {
         itemCount: widget.expenses.length,
         itemBuilder: (context, index) {
           final item = widget.expenses[index];
-          return expensesItem(item, context);
+          return ExpensesItem(expenses: item);
         },
       ),
     );
