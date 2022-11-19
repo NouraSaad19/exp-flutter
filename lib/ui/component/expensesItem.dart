@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../data/model/exoenses_model.dart';
+import '../../sqldb.dart';
 
 List addtypeExpenses = [];
 List addiconExpenses = [];
@@ -12,7 +13,6 @@ dynamic? amount;
 class ExpensesItem extends StatefulWidget {
   ExpensesItem({required this.expenses});
   final Expenses expenses;
-
   @override
   State<StatefulWidget> createState() => _ExpensesItemState();
 }
@@ -24,6 +24,8 @@ class _ExpensesItemState extends State<ExpensesItem> {
     Controller1.dispose();
     super.dispose();
   }
+
+  SqlDb sqldb = SqlDb();
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +116,7 @@ class _ExpensesItemState extends State<ExpensesItem> {
                                                   Color.fromRGBO(
                                                       0, 71, 147, 1)),
                                         ),
-                                        onPressed: () {
+                                        onPressed: () async {
                                           amount = Controller1.text;
                                           // if (double.parse(amount) >= 0) {
                                           setState(() {
@@ -125,28 +127,31 @@ class _ExpensesItemState extends State<ExpensesItem> {
                                                     double.parse(amount);
                                           });
 
-                                          // widget.expenses.amount =
-                                          //     double.parse(amount);
-                                          // print(amount);
                                           if (widget.expenses.amount != null) {
-                                            addtypeExpenses.add(
-                                                widget.expenses.typeExpenses);
-                                            addiconExpenses
-                                                .add(widget.expenses.icon);
-                                            addamountExpenses
-                                                .add(widget.expenses.amount);
-                                            ch1.add(
-                                                widget.expenses.typeExpenses);
-                                            ch2.add(widget.expenses.amount);
+                                            int response =
+                                                await sqldb.insertData('''
+                                                INSERT INTO expenseess (`typeExpensess` , `amounts`)
+                                                VALUES ('${widget.expenses.typeExpenses}' , '${widget.expenses.amount}')
+                                                ''');
+                                            print(
+                                                "response ====================================");
+                                            print(response);
+                                            // addtypeExpenses.add(
+                                            //     widget.expenses.typeExpenses);
+                                            // addiconExpenses
+                                            //     .add(widget.expenses.icon);
+                                            // addamountExpenses
+                                            //     .add(widget.expenses.amount);
+                                            // ch1.add(
+                                            //     widget.expenses.typeExpenses);
+                                            // ch2.add(widget.expenses.amount);
                                           }
-                                          // addamountExpenses
-                                          //     .add(widget.expenses.amount);
-                                          print(addtypeExpenses);
-                                          print(addiconExpenses);
-                                          print(addamountExpenses);
 
-                                          print(
-                                              "expenses.amount ${widget.expenses.amount}");
+                                          // print(addtypeExpenses);
+                                          // print(addiconExpenses);
+                                          // print(addamountExpenses);
+                                          // print(
+                                          //     "expenses.amount ${widget.expenses.amount}");
                                           Navigator.of(context).pop();
                                           //   Navigator.push(
                                           //   context,

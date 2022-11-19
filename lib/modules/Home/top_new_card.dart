@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TopNewCard extends StatelessWidget {
-  final String balance;
-  final String saving;
-  final String spent;
+  final double balance;
+  final double saving;
+  final double spent;
 
   TopNewCard(
       {Key? key,
@@ -14,8 +14,8 @@ class TopNewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var i1 = double.parse(balance);
-    var i2 = double.parse(spent);
+    // var i1 = double.parse(balance);
+    // var i2 = double.parse(spent);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -63,7 +63,7 @@ class TopNewCard extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: (i1 >= i2 ? Colors.white : Colors.red)),
+                    color: (balance >= saving? Colors.white : Colors.red)),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

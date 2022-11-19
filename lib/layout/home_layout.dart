@@ -8,8 +8,8 @@ import 'package:expense_tracker/modules/Home/welcomepage.dart';
 
 class HomeLayout extends StatefulWidget {
   final String name;
-  final String salary;
-  final String saving;
+  final double salary;
+  final double saving;
 
   HomeLayout(
       {super.key,
@@ -76,6 +76,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                                     },
                                     style: OutlinedButton.styleFrom(
                                       fixedSize: Size.fromWidth(100),
+                                      primary: Color.fromRGBO(0, 71, 147, 1),
                                       side: BorderSide(
                                           width: 1.0,
                                           color: Color.fromRGBO(0, 71, 147, 1)),
@@ -130,8 +131,10 @@ class _HomeLayoutState extends State<HomeLayout> {
         child: Icon(Icons.add, color: Color.fromRGBO(0, 71, 147, 1)),
       ),
       bottomNavigationBar: BottomNavigationBar(
+
           //showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
+          selectedItemColor: Color.fromRGBO(0, 71, 147, 1),
           currentIndex: currentIndex,
           onTap: (value) => setState(() {
                 currentIndex = value;
@@ -141,11 +144,12 @@ class _HomeLayoutState extends State<HomeLayout> {
             // need icon and label
             // ignore: prefer_const_constructors
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: Color.fromRGBO(0, 71, 147, 1),
-                ),
-                label: 'الرئيسية'),
+              icon: Icon(
+                Icons.home,
+                color: Color.fromRGBO(0, 71, 147, 1),
+              ),
+              label: 'الرئيسية',
+            ),
             // BottomNavigationBarItem(
             //     icon: Icon(Icons.add, color: Color.fromRGBO(0, 71, 147, 1)),
             //     label: 'اضافة'),

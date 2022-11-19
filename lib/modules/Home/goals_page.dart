@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../../sqldb.dart';
 import 'h_screen.dart';
 
 class MyGoals extends StatefulWidget {
@@ -22,14 +23,20 @@ var myController1 = TextEditingController();
 String GoalName = '';
 
 var myController2 = TextEditingController();
-double saving_amount = 0.0;
+double saving_amount = 0;
 
 var myController3 = TextEditingController();
-double monthly_amount = 0.0;
+double monthly_amount = 0;
+
+var myController4 = TextEditingController();
+String note = '';
 
 class _MyGoalsState extends State<MyGoals> {
   DateTime? startDate;
   DateTime? endDate;
+
+  GlobalKey<FormState> formstate = GlobalKey();
+  SqlDb sqlDb = SqlDb();
 
   @override
   Widget build(BuildContext context) {
@@ -40,217 +47,230 @@ class _MyGoalsState extends State<MyGoals> {
         title: Text(
           'الاهداف ',
           style: TextStyle(
-              // fontSize: 15,
+            // fontSize: 15,
               color: Color.fromRGBO(0, 71, 147, 1),
               fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
-        //alignment: Alignment.topRight,
-        padding: EdgeInsets.all(35),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // arabic format
-              children: [
-                Text(
-                  "عنوان الهدف",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(0, 71, 147, 1),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  height: 38,
-                  // width: 306,
-                  child: TextField(
-                    controller: myController1,
-                    textAlign: TextAlign.start,
-                    showCursor: false,
-                    style: TextStyle(height: 2.5),
-                    decoration: InputDecoration(
-                      //  filled: true,
-                      fillColor: Color.fromRGBO(217, 227, 239, 1),
-                      border: OutlineInputBorder(),
-                      hintText: 'ادخل هدفك ',
+      body: Form(
+        key: formstate,
+        child: Container(
+          //alignment: Alignment.topRight,
+          padding: EdgeInsets.all(35),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // arabic format
+                children: [
+                  Text(
+                    "عنوان الهدف",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 71, 147, 1),
+                      fontWeight: FontWeight.w600,
                     ),
-                    onChanged: (text) {
-                      GoalName = text;
-                    },
                   ),
-                ),
-
-                SizedBox(height: 10),
-//////////////////
-
-                ///
-                Text(
-                  'اختر التاريخ ',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(0, 71, 147, 1),
-                    fontWeight: FontWeight.w600,
+                  SizedBox(height: 10),
+                  SizedBox(
+                    height: 38,
+                    // width: 306,
+                    child: TextFormField(
+                      controller: myController1,
+                      textAlign: TextAlign.start,
+                      showCursor: false,
+                      style: TextStyle(height: 2.5),
+                      decoration: InputDecoration(
+                        //  filled: true,
+                        fillColor: Color.fromRGBO(217, 227, 239, 1),
+                        border: OutlineInputBorder(),
+                        hintText: 'ادخل هدفك ',
+                      ),
+                      onChanged: (text) {
+                        GoalName = text;
+                      },
+                    ),
                   ),
-                ),
 
-                Container(
-                    alignment: Alignment.center,
-                    // color: Colors.amberAccent,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 10),
-                        TextButton(
-                          onPressed: () {
-                            showCustomDateRangePicker(
-                              context,
-                              dismissible: true,
-                              minimumDate: DateTime.now(),
-                              maximumDate:
-                                  DateTime.now().add(const Duration(days: 200)),
-                              endDate: endDate,
-                              startDate: startDate,
-                              onApplyClick: (start, end) {
-                                setState(() {
-                                  endDate = end;
-                                  startDate = start;
-                                });
-                              },
-                              onCancelClick: () {
-                                setState(() {
-                                  endDate = null;
-                                  startDate = null;
-                                });
-                              },
-                            );
-                          },
-                          // tooltip: 'choose date Rangellll',
-                          child: Icon(Icons.calendar_month,
-                              color: Color.fromRGBO(0, 71, 147, 1)),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          '${startDate != null ? DateFormat("dd, MMM").format(startDate!) : '-'} / ${endDate != null ? DateFormat("dd, MMM").format(endDate!) : '-'}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: Color.fromRGBO(0, 71, 147, 1),
+                  SizedBox(height: 10),
+                  //////////////////
+
+                  ///
+                  Text(
+                    'اختر التاريخ ',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 71, 147, 1),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+
+                  Container(
+                      alignment: Alignment.center,
+                      // color: Colors.amberAccent,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          TextButton(
+                            onPressed: () {
+                              showCustomDateRangePicker(
+                                context,
+                                dismissible: true,
+                                minimumDate: DateTime.now(),
+                                maximumDate: DateTime.now()
+                                    .add(const Duration(days: 200)),
+                                endDate: endDate,
+                                startDate: startDate,
+                                onApplyClick: (start, end) {
+                                  setState(() {
+                                    endDate = end;
+                                    startDate = start;
+                                  });
+                                },
+                                onCancelClick: () {
+                                  setState(() {
+                                    endDate = null;
+                                    startDate = null;
+                                  });
+                                },
+                              );
+                            },
+                            // tooltip: 'choose date Rangellll',
+                            child: Icon(Icons.calendar_month,
+                                color: Color.fromRGBO(0, 71, 147, 1)),
                           ),
-                        ),
-                      ],
-                    )),
-/////////////////
-                SizedBox(height: 10),
+                          SizedBox(height: 10),
+                          Text(
+                            '${startDate != null ? DateFormat("dd, MMM").format(startDate!) : '-'} / ${endDate != null ? DateFormat("dd, MMM").format(endDate!) : '-'}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: Color.fromRGBO(0, 71, 147, 1),
+                            ),
+                          ),
+                        ],
+                      )),
+                  /////////////////
+                  SizedBox(height: 10),
 
-                Text(
-                  "كمية الادخار ",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(0, 71, 147, 1),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 10),
-
-                SizedBox(
-                  height: 38,
-                  child: TextField(
-                    controller: myController2,
-                    textAlign: TextAlign.start,
-                    showCursor: false,
-                    style: TextStyle(height: 2.5),
-                    decoration: InputDecoration(
-                      // filled: true,
-                      fillColor: Color.fromRGBO(217, 227, 239, 1),
-                      border: OutlineInputBorder(),
-                      hintText: 'ادخل المبلغ',
+                  Text(
+                    "كمية الادخار ",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 71, 147, 1),
+                      fontWeight: FontWeight.w600,
                     ),
-                    onChanged: (text) {
-                      saving_amount = double.parse(text);
+                  ),
+                  SizedBox(height: 10),
+
+                  SizedBox(
+                    height: 38,
+                    child: TextFormField(
+                      controller: myController2,
+                      textAlign: TextAlign.start,
+                      showCursor: false,
+                      style: TextStyle(height: 2.5),
+                      decoration: InputDecoration(
+                        // filled: true,
+                        fillColor: Color.fromRGBO(217, 227, 239, 1),
+                        border: OutlineInputBorder(),
+                        hintText: 'ادخل المبلغ',
+                      ),
+                      onChanged: (text) {
+                        saving_amount = double.parse(text);
+                      },
+                    ),
+                  ),
+
+                  SizedBox(height: 10),
+                  Text(
+                    "الخصم الشهري",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 71, 147, 1),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+
+                  SizedBox(
+                    height: 38,
+                    child: TextFormField(
+                      controller: myController3,
+                      textAlign: TextAlign.start,
+                      showCursor: false,
+                      style: TextStyle(height: 2.5),
+                      decoration: InputDecoration(
+                        //   filled: true,
+                        fillColor: Color.fromRGBO(217, 227, 239, 1),
+                        border: OutlineInputBorder(),
+                        hintText: 'ادخل المبلغ',
+                      ),
+                      onChanged: (text) {
+                        monthly_amount = double.parse(text);
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+
+                  Text(
+                    "ملاحظات",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color.fromRGBO(0, 71, 147, 1),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+
+                  SizedBox(
+                    height: 73,
+                    child: TextFormField(
+                      controller: myController4,
+                      textAlign: TextAlign.start,
+                      showCursor: false,
+                      style: TextStyle(height: 3),
+                      decoration: InputDecoration(
+                        hintText: 'ادخل ملاحظاتك هنا ',
+                        //filled: true,
+                        fillColor: Color.fromRGBO(217, 227, 239, 1),
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (text) {
+                        note = text;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromRGBO(0, 71, 147, 1),
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    onPressed: () async {
+                      int? respons = await sqlDb.insertData(''' 
+                      INSERT INTO goals (`goal` , `saving` ,`monthly`,`note`)
+                      VALUES("${myController1.text}", "${myController2.text.toString()}", 
+                      "${myController3.text.toString()}", "${myController4.text}" )
+                      ''');
+                      print("${respons}");
+                      Navigator.pop(context);
+
+                      // setState(() {
+                      //   print(myController1.text);
+                      //   print(myController2.text);
+                      //   print(myController3.text);
+                      // });
                     },
-                  ),
-                ),
-
-                SizedBox(height: 10),
-                Text(
-                  "الخصم الشهري",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(0, 71, 147, 1),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 10),
-
-                SizedBox(
-                  height: 38,
-                  child: TextField(
-                    controller: myController3,
-                    textAlign: TextAlign.start,
-                    showCursor: false,
-                    style: TextStyle(height: 2.5),
-                    decoration: InputDecoration(
-                      //   filled: true,
-                      fillColor: Color.fromRGBO(217, 227, 239, 1),
-                      border: OutlineInputBorder(),
-                      hintText: 'ادخل المبلغ',
-                    ),
-                    onChanged: (text) {
-                      monthly_amount = double.parse(text);
-                    },
-                  ),
-                ),
-                SizedBox(height: 10),
-
-                Text(
-                  "ملاحظات",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(0, 71, 147, 1),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 10),
-
-                SizedBox(
-                  height: 73,
-                  child: TextField(
-                    textAlign: TextAlign.start,
-                    showCursor: false,
-                    style: TextStyle(height: 3),
-                    decoration: InputDecoration(
-                      hintText: 'ادخل ملاحظاتك هنا ',
-                      //filled: true,
-                      fillColor: Color.fromRGBO(217, 227, 239, 1),
-                      border: OutlineInputBorder(),
+                    child: Text(
+                      'حفظ',
+                      style: TextStyle(fontSize: 25),
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Color.fromRGBO(0, 71, 147, 1),
-                    minimumSize: const Size.fromHeight(50),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-
-                    // setState(() {
-                    //   print(myController1.text);
-                    //   print(myController2.text);
-                    //   print(myController3.text);
-                    // });
-                  },
-                  child: Text(
-                    'حفظ',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ]),
+                ],
+              ),
+            )
+          ]),
+        ),
       ),
     );
   }

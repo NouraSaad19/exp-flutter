@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
+import '../../data/model/dataUser.dart';
+import '../../database.dart';
+import '../../sqldb.dart';
 import 'h_screen.dart';
 
 class FWidget extends StatefulWidget {
@@ -12,6 +15,8 @@ class FWidget extends StatefulWidget {
   @override
   State<FWidget> createState() => _FWidgetState();
 }
+
+SqlDb sqldb = SqlDb();
 
 class _FWidgetState extends State<FWidget> {
   var c1 = Color.fromRGBO(0, 71, 147, 1);
@@ -22,26 +27,87 @@ class _FWidgetState extends State<FWidget> {
   var salary;
   var saving;
 
-  void totalEpenses() {
+  SqlDb sqldb = SqlDb();
+
+  Future<void> totalEpenses() async {
     name = Controller1.text;
     salary = Controller2.text;
     saving = Controller3.text;
 
-    final saveImpty = "0";
-    var i1 = double.parse(salary);
-    var i2 = saving.isEmpty ? double.parse(saveImpty) : double.parse(saving);
-    var totalSalary = i1 - i2;
-    var totalAll = totalSalary.toString();
-    var saveOrnot = saving.isEmpty ? "0.0" : saving;
+    double saveImpty = 0.0;
+
+    double? salaryToDouble = double.tryParse(salary);
+    double? saveToDouble = double.tryParse(saving);
+    var i2 = saving.isEmpty ? saveImpty : double.parse(saving);
+    var totalSalary = salaryToDouble! - i2;
+    //---------------------------------------
+    String RandomSalaryString = totalSalary.toStringAsFixed(2);
+    var converRandomDouble = double.parse(RandomSalaryString);
+
+    //-----------------------
+    int response = await sqldb.insertData('''
+        INSERT INTO 'databalance' (`nameUser` ,`balance` ,`save`)
+        VALUES ( '${name}','${converRandomDouble}' , '${i2}') ''');
+    print("response c ====================================");
+    print("card $response");
+
+    //----------------------------
+    var result1;
+    double? converts1 = 0.0;
+    Future<double?> getTotal1() async {
+      result1 = await sqldb.readData("SELECT SUM(balance) FROM databalance ");
+
+      setState(() {
+        String resultBefore = result1.toString();
+        String resultBeforeCut = resultBefore.substring(
+            resultBefore.indexOf(':') + 2, resultBefore.indexOf('}'));
+        converts1 = double.parse(resultBeforeCut);
+      });
+
+      return converts1;
+    }
+
+    print("============converts1");
+    print(converts1);
+    double bImpty = 0.0;
+    var i3 = converts1 == null ? bImpty : totalSalary;
+    converts1 == null ? 0 : converts1;
+
+//
+    getTotal1();
+    //------------------------------------------------------------
+    var resultSave;
+    double? convertsSave = 0.0;
+    Future<double?> getTotalSave() async {
+      resultSave = await sqldb.readData("SELECT SUM(save) FROM databalance ");
+      //print(sqldb.toString());
+      setState(() {
+        String resultBefore = resultSave.toString();
+        String resultBeforeCut = resultBefore.substring(
+            resultBefore.indexOf(':') + 2, resultBefore.indexOf('}'));
+        convertsSave = double.parse(resultBeforeCut);
+      });
+
+      return convertsSave;
+    }
+
+    print("nnnnn");
+    double sImpty = 0.0;
+    var checkNull = convertsSave == null ? sImpty : saveToDouble;
+    convertsSave == null ? 0 : convertsSave;
+    getTotalSave();
+
+    //----------------------------------
 
     var router = new MaterialPageRoute(
         builder: (BuildContext context) => HomeLayout(
-              salary: totalAll,
-              saving: saveOrnot,
+              salary: converts1!,
+              saving: convertsSave!,
               name: Controller1.text,
             ));
     Navigator.of(context).push(router);
   }
+
   //
 
   @override

@@ -18,6 +18,12 @@ class Expenses {
       this.amount,
       this.stateClick});
 
+  // void getAmount(){
+
+  //   for(int i=0; i<readData().)
+
+  // }
+
   // void delete1(Expenses  ) {
   //   Expenses.remove(typeExpenses , amount);
   //
